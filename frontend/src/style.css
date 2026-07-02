@@ -1,0 +1,155 @@
+body {
+  background-color: #dad7cd;
+}
+
+/* SECCIÓN: BARRA DE NAVEGACIÓN*/
+.sticky {
+  background-color: #007200e9;
+  transition: all 0.3s ease-out 0s;
+  box-shadow: 0px 10px 10px 0px #00ff11;
+  backdrop-filter: blur(15px);
+}
+
+.navbar {
+  background-color: #007200;
+  position: fixed;
+  transition: all 0.3s ease-out 0s;
+  padding: 0.3rem 2rem;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.navbar-toggler {
+  position: relative;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.navbar-toggler span {
+  display: block;
+  background-color: #004b23;
+  height: 4px;
+  width: 27px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  transform: rotate(0deg);
+  left: 0;
+  opacity: 1;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: 0;
+  box-shadow: none;
+}
+
+.navbar-toggler span:nth-child(1),
+.navbar-toggler span:nth-child(3) {
+  transition: transform 0.35s ease-in-out;
+  transition: transform 0.35s ease-in-out;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(1) {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  transform: rotate(135deg);
+  opacity: 0.9;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(2) {
+  height: 12px;
+  visibility: hidden;
+  background-color: transparent;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(3) {
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  transform: rotate(-135deg);
+  opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    background-color: #007200;
+  }
+
+  .navbar-nav .nav-item a::after {
+    display: none;
+  }
+
+  .navbar-nav {
+    margin-left: 0 !important;
+    align-items: flex-start;
+  }
+}
+
+.navbar-brand p {
+  color: white;
+  margin-bottom: 0;
+  margin-left: 1em;
+}
+
+.logo {
+  height: 2rem;
+  width: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+  color: white;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.nav-link {
+  padding: 0.7rem 1rem;
+}
+
+@media (max-width: 767px) {
+  .nav-link {
+    padding: 0.7rem 1rem;
+  }
+}
+
+.navbar-nav .nav-item {
+  position: relative;
+  margin-left: 20px;
+}
+
+.navbar-nav .nav-item a {
+  font-weight: 400;
+  transition: all 0.3s ease-out 0s;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-item a::after,
+.navbar-nav .nav-item a::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  border-radius: 16px;
+  background-color: #004b23;
+  bottom: 8px;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease-out;
+}
+
+.navbar-nav .nav-item a::before {
+  top: 8px;
+  transform-origin: left;
+}
+
+.navbar-nav .nav-item a:hover::after,
+.navbar-nav .nav-item a:hover::before {
+  transform: scaleX(1);
+}
