@@ -11,6 +11,19 @@
 body {
   background-color: var(--fondo);
   padding-top: 70px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-content {
+  flex: 1;
 }
 
 /* SECCIÓN: BARRA DE NAVEGACIÓN*/
@@ -177,6 +190,7 @@ body {
   padding-bottom: 30px;
   padding-top: 50px;
   margin-top: 50px;
+  margin-bottom: 50px;
   background-color: var(--blanco);
   border-radius: 1rem;
   width: 70%;
@@ -224,4 +238,54 @@ body {
   border-radius: 50% !important;
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.18) !important;
   margin-right: 0.4rem;
+}
+
+/* SECCIÓN: FOOTER*/
+.footer {
+  background-color: var(--verde-principal);
+  bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
+.footer-copyright {
+  text-align: center;
+}
+
+.dev-email {
+  display: inline-block;
+  text-align: left;
+}
+
+.footer-body {
+  z-index: 1;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .footer-copyright {
+    text-align: center;
+  }
+
+  .footer-body {
+    text-align: center;
+  }
+}
+
+.footer h3 {
+  font-size: 1em;
+  color: var(--blanco);
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.footer-icons {
+  margin-bottom: 0.5em;
+  padding: 0;
+}
+
+.social-icons {
+  display: inline-block;
+  padding-right: 15px;
+  padding-left: 15px;
 }

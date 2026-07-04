@@ -1,14 +1,14 @@
 import logo from "./logo.svg";
 import NavBar from "./components/Navbar";
 import Preloader from "./components/Pre";
-import Home from "./Inicio/Home";
+import Home from "./components/Inicio/Home";
+import Footer from "./components/Footer";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
 } from "react-router-dom";
-import "./App.css";
 import { useEffect, useState } from "react";
 
 import "./style.css";
@@ -28,9 +28,12 @@ function App() {
       <Preloader load={load} />
       <div className="App" id={load ? "no-scroll" : "scroll"}>
         <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
+        <div className="app-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
     </Router>
   );
