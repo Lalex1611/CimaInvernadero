@@ -7,24 +7,24 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const [rows] = await pool.query(`
-      SELECT 
-        d.id,
-        d.estado,
-        d.nombre,
-        d.created_at,
-        e.altura AS especificaciones,
-        e.ancho,
-        e.largo,
-        z.zona AS zona,
-        t.nombre AS tipo_dispositivo,
-        t.descripcion,
-        t.image_path
-      FROM dispositivo d
-      JOIN especificaciones e ON d.specs_id = e.id
-      JOIN zona z ON d.zona_id = z.id
-      JOIN tipo_dispositivo t ON d.tipo_id = t.id
-      ORDER BY d.created_at DESC
-    `);
+  SELECT 
+    d.id,
+    d.estado,
+    d.nombre,
+    d.created_at,
+    e.altura,
+    e.ancho,
+    e.largo,
+    z.zona AS zona,
+    t.nombre AS tipo_dispositivo,
+    t.descripcion,
+    t.image_path
+  FROM dispositivo d
+  LEFT JOIN especificaciones e ON d.specs_id = e.id
+  JOIN zona z ON d.zona_id = z.id
+  JOIN tipo_dispositivo t ON d.tipo_id = t.id
+  ORDER BY d.created_at DESC
+`);
     res.json(rows);
   } catch (error) {
     console.error("Error al consultar dispositivos:", error.message);
@@ -43,7 +43,7 @@ router.get("/:id", async (req, res) => {
         d.estado,
         d.nombre,
         d.created_at,
-        e.altura AS especificaciones,
+        e.altura,
         e.ancho,
         e.largo,
         z.zona AS zona,

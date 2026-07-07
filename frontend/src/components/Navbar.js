@@ -11,7 +11,6 @@ import {
   WiSnowflakeCold,
   WiSmallCraftAdvisory,
 } from "react-icons/wi";
-import { SiHomeassistant } from "react-icons/si";
 
 function NavBar() {
   const [expand, updateExpander] = useState(false);
@@ -77,6 +76,18 @@ function NavBar() {
                   style={{ marginBottom: "2px", fontSize: "1.5em" }}
                 />
                 Dispositivos
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                as={Link}
+                to="/dispositivos"
+                onClick={() => updateExpander(false)}
+              >
+                <WiSnowflakeCold
+                  style={{ marginBottom: "2px", fontSize: "1.5em" }}
+                />
+                Configuracion
               </Nav.Link>
             </Nav.Item>
           </Nav>

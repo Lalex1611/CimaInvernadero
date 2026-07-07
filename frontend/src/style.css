@@ -6,6 +6,7 @@
   --blanco: white;
   --fondo: #dad7cd;
   --gris-fondo: #d9d9d9;
+  --blanco-fondo: #f4f4f4;
 }
 
 body {
@@ -238,6 +239,51 @@ body {
   border-radius: 50% !important;
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.18) !important;
   margin-right: 0.4rem;
+}
+
+.data-section {
+  text-align: center;
+}
+
+.lecturas-section {
+  display: flex;
+  justify-content: space-around;
+}
+
+.lectura-card {
+  text-align: left;
+  background-color: var(--blanco-fondo);
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  border-radius: 1rem;
+  padding: 1rem 0 1rem 1rem;
+  border-top: 4px solid transparent;
+}
+
+.lectura-label {
+  font-size: large;
+  font-weight: 600;
+}
+
+.lectura-valor {
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.temperatura {
+  border-width: 30%;
+  border-color: #e74c3c;
+}
+
+.humedad {
+  border-width: 30%;
+  border-color: #3498db;
+}
+
+.vpd {
+  border-width: 30%;
+  border-color: #2ecc71;
 }
 
 /* SECCIÓN: FOOTER*/

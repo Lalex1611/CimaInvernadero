@@ -41,7 +41,7 @@ app.get("/api/health", async (req, res) => {
 });
 
 app.use("/api/lecturas", lecturasRouter);
-app.use("api/dispositivos", dispositivosRouter);
+app.use("/api/dispositivos", dispositivosRouter);
 app.use("/api/catalogos", catalogosRouter);
 
 // Inicializa la base de datos y arranca el servidor

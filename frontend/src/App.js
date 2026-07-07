@@ -1,14 +1,8 @@
-import logo from "./logo.svg";
 import NavBar from "./components/Navbar";
 import Preloader from "./components/Pre";
 import Home from "./components/Inicio/Home";
 import Footer from "./components/Footer";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import "./style.css";

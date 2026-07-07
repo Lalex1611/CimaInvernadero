@@ -1,10 +1,5 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import {
-  AiFillGithub,
-  AiOutlineTwitter,
-  AiFillInstagram,
-} from "react-icons/ai";
 import { BsFacebook, BsGithub, BsInstagram } from "react-icons/bs";
 
 function Footer() {
@@ -25,17 +20,22 @@ function Footer() {
         <Col md="4" className="footer-body">
           <ul className="footer-icons">
             <li className="social-icons">
-              <a href="" style={{ color: "white" }}>
+              <a href="/" style={{ color: "white" }}>
+                {/* //TODO: Agregar link */}
                 <BsGithub />
               </a>
             </li>
             <li className="social-icons">
-              <a href="" style={{ color: "white" }}>
+              <a href="/" style={{ color: "white" }}>
+                {/* //TODO: Agregar link */}
+
                 <BsFacebook />
               </a>
             </li>
             <li className="social-icons">
-              <a href="" style={{ color: "white" }}>
+              <a href="/" style={{ color: "white" }}>
+                {/* //TODO: Agregar link */}
+
                 <BsInstagram />
               </a>
             </li>
