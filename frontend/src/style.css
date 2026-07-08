@@ -7,6 +7,7 @@
   --fondo: #dad7cd;
   --gris-fondo: #d9d9d9;
   --blanco-fondo: #f4f4f4;
+  --negro: #000000;
 }
 
 body {
@@ -25,6 +26,11 @@ body {
 
 .app-content {
   flex: 1;
+}
+
+.card-component {
+  background-color: var(--blanco);
+  border-radius: 1rem;
 }
 
 /* SECCIÓN: BARRA DE NAVEGACIÓN*/
@@ -192,8 +198,6 @@ body {
   padding-top: 50px;
   margin-top: 50px;
   margin-bottom: 50px;
-  background-color: var(--blanco);
-  border-radius: 1rem;
   width: 70%;
 }
 
@@ -286,7 +290,98 @@ body {
   border-color: #2ecc71;
 }
 
-/* SECCIÓN: FOOTER*/
+/* SECCIÓN: DATOS */
+.data-page {
+  width: 80%;
+}
+
+.data-page h1,
+.data-page h2 {
+  color: var(--verde-secundario);
+}
+
+.data-page-section {
+  margin: 2rem 0;
+}
+
+.data-section {
+  position: relative;
+  text-align: left;
+}
+
+.filter-section {
+  position: relative;
+  padding-bottom: 50px;
+  padding-top: 30px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  color: var(--verde-secundario);
+  font-weight: 600;
+}
+
+.filter select,
+.filter input {
+  border-width: 0.1rem;
+  border-radius: 0.5rem;
+  border-color: var(--negro);
+  padding-left: 0.5rem;
+}
+
+.all-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.lecturas-title {
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+.table-head th {
+  color: white;
+  background-color: var(--verde-principal);
+}
+
+.pagination-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+}
+
+.pagination-btn {
+  border: none;
+  background-color: var(--gris-fondo);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--verde-secundario);
+  transition: all 0.2s ease;
+}
+
+.pagination-btn:hover {
+  background-color: var(--verde-principal);
+  color: white;
+}
+
+.pagination-btn.activo {
+  background-color: var(--verde-principal);
+  color: white;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* SECCIÓN: FOOTER */
 .footer {
   background-color: var(--verde-principal);
   bottom: 0;

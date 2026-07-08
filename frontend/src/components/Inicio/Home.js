@@ -16,9 +16,10 @@ function Home() {
 
   useEffect(() => {
     function fetchLecturas() {
-      fetch("/api/lecturas?dispositivo_id=1")
+      fetch("/api/lecturas/ultimas?dispositivo_id=1")
         .then((res) => res.json())
-        .then((datos) => {
+        .then((respuesta) => {
+          const datos = respuesta.datos;
           const temperatura = datos.find((l) => l.tipo_dato === "Temperatura");
           const humedad = datos.find((l) => l.tipo_dato === "Humedad");
           const vpd = datos.find((l) => l.tipo_dato === "VPD");
@@ -33,14 +34,14 @@ function Home() {
 
     fetchLecturas();
 
-    const intervalo = setInterval(fetchLecturas, 5000);
+    const intervalo = setInterval(fetchLecturas, 60000);
 
     return () => clearInterval(intervalo);
   }, []);
 
   return (
     <section>
-      <Container className="home-section" id="home">
+      <Container className="home-section  card-component" id="home">
         <Container className="home-content">
           <Row>
             <Col md={7} className="home-header">
@@ -64,7 +65,7 @@ function Home() {
           </Row>
         </Container>
       </Container>
-      <Container className="home-section">
+      <Container className="home-section card-component">
         <Container className="home-content home-secundary">
           <h1 className="heading">Descripción</h1>
           <p>
@@ -84,7 +85,7 @@ function Home() {
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <Container className="home-section">
+        <Container className="home-section  card-component">
           <Container className="home-content data-section">
             <h1>Datos actuales</h1>
             <p>Lecturas más recientes registradas</p>

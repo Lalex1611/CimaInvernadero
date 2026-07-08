@@ -7,6 +7,9 @@ const router = Router();
 router.get("/", async (req, res) => {
   const { dispositivo_id, tipo_dato_id, zona_id, tipo_dispositivo_id } =
     req.query;
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 20;
+  const offset = (page - 1) * limit;
 
   const condiciones = [];
   const valores = [];
@@ -50,14 +53,72 @@ router.get("/", async (req, res) => {
       JOIN tipo_dispositivo t  ON d.tipo_id        = t.id
       ${where}
       ORDER BY l.created_at DESC
-      LIMIT 100
+      LIMIT ? OFFSET ?
       `,
+      [...valores, limit, offset],
+    );
+
+    const [total] = await pool.query(
+      `SELECT COUNT(*) as total
+      FROM lecturas l
+      JOIN tipo_dato        td ON l.tipo_dato_id   = td.id
+      JOIN dispositivo      d  ON l.dispositivo_id = d.id
+      JOIN zona             z  ON d.zona_id        = z.id
+      JOIN tipo_dispositivo t  ON d.tipo_id        = t.id
+      ${where}`,
       valores,
     );
-    res.json(rows);
+
+    res.json({
+      datos: rows,
+      total: total[0].total,
+      pagina: page,
+      limite: limit,
+      total_paginas: Math.ceil(total[0].total / limit),
+    });
   } catch (error) {
     console.error("Error al consultar lecturas:", error.message);
     res.status(500).json({ error: "Error al consultar las lecturas" });
+  }
+});
+
+// GET /api/lecturas/ultimas?dispositivo_id=1
+router.get("/ultimas", async (req, res) => {
+  const { dispositivo_id } = req.query;
+
+  if (!dispositivo_id) {
+    return res.status(400).json({ error: "dispositivo_id es requerido" });
+  }
+
+  try {
+    const [rows] = await pool.query(
+      `
+      SELECT l.id, l.dato, l.created_at,
+             td.nombre AS tipo_dato, td.unidad,
+             d.nombre AS dispositivo,
+             z.zona AS zona,
+             t.nombre AS tipo_dispositivo
+      FROM lecturas l
+      JOIN tipo_dato        td ON l.tipo_dato_id   = td.id
+      JOIN dispositivo      d  ON l.dispositivo_id = d.id
+      JOIN zona             z  ON d.zona_id        = z.id
+      JOIN tipo_dispositivo t  ON d.tipo_id        = t.id
+      INNER JOIN (
+        SELECT tipo_dato_id, MAX(created_at) AS max_fecha
+        FROM lecturas
+        WHERE dispositivo_id = ?
+        GROUP BY tipo_dato_id
+      ) ult ON ult.tipo_dato_id = l.tipo_dato_id 
+            AND ult.max_fecha   = l.created_at
+      WHERE l.dispositivo_id = ?
+      `,
+      [dispositivo_id, dispositivo_id],
+    );
+
+    res.json({ datos: rows });
+  } catch (error) {
+    console.error("Error al consultar últimas lecturas:", error.message);
+    res.status(500).json({ error: "Error al consultar las últimas lecturas" });
   }
 });
 

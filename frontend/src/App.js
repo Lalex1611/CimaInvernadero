@@ -1,6 +1,7 @@
 import NavBar from "./components/Navbar";
 import Preloader from "./components/Pre";
 import Home from "./components/Inicio/Home";
+import Datos from "./components/Datos/Datos";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -25,6 +26,7 @@ function App() {
         <div className="app-content">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/datos" element={<Datos />} />
           </Routes>
         </div>
         <Footer />
