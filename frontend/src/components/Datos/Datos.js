@@ -10,12 +10,14 @@ function Datos() {
   const [lecturas, setLecturas] = useState([]);
   const [dispositivos, setDispositivos] = useState([]);
   const [tiposDato, setTiposDato] = useState([]);
+  const [zonas, setZonas] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [pagina, setPagina] = useState(1);
   const [totalPaginas, setTotalPaginas] = useState(1);
 
   const [filtroDispositivo, setFiltroDispositivo] = useState("");
   const [filtroTipoDato, setFiltroTipoDato] = useState("");
+  const [filtroZona, setFiltroZona] = useState("");
   const [filtroFechaInicio, setFiltroFechaInicio] = useState("");
   const [filtroFechaFin, setFiltroFechaFin] = useState("");
 
@@ -27,11 +29,21 @@ function Datos() {
     fetch("/api/catalogos/tipos-dato")
       .then((res) => res.json())
       .then((datos) => setTiposDato(datos));
+
+    fetch("/api/catalogos/zonas")
+      .then((res) => res.json())
+      .then((datos) => setZonas(datos));
   }, []);
 
   useEffect(() => {
     setPagina(1);
-  }, [filtroDispositivo, filtroTipoDato, filtroFechaInicio, filtroFechaFin]);
+  }, [
+    filtroDispositivo,
+    filtroTipoDato,
+    filtroZona,
+    filtroFechaInicio,
+    filtroFechaFin,
+  ]);
 
   useEffect(() => {
     setCargando(true);
@@ -40,6 +52,7 @@ function Datos() {
       const params = new URLSearchParams();
       if (filtroDispositivo) params.append("dispositivo_id", filtroDispositivo);
       if (filtroTipoDato) params.append("tipo_dato_id", filtroTipoDato);
+      if (filtroZona) params.append("zona_id", filtroZona);
       if (filtroFechaInicio) params.append("fecha_inicio", filtroFechaInicio);
       if (filtroFechaFin) params.append("fecha_fin", filtroFechaFin);
       params.append("page", pagina);
@@ -59,6 +72,7 @@ function Datos() {
   }, [
     filtroDispositivo,
     filtroTipoDato,
+    filtroZona,
     filtroFechaInicio,
     filtroFechaFin,
     pagina,
@@ -124,6 +138,21 @@ function Datos() {
                 {tiposDato.map((t) => (
                   <option key={t.id} value={t.id}>
                     {t.nombre}
+                  </option>
+                ))}
+              </select>
+            </Col>
+            <Col className="filter">
+              <label htmlFor="tipo_zona">Zona</label>
+              <select
+                id="tipo_zona"
+                onChange={(e) => setFiltroZona(e.target.value)}
+                value={filtroZona}
+              >
+                <option value="">Todas las zonas</option>
+                {zonas.map((t) => (
+                  <option key={t.id} value={t.id}>
+                    {t.zona}
                   </option>
                 ))}
               </select>
