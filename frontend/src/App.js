@@ -2,6 +2,7 @@ import NavBar from "./components/Navbar";
 import Preloader from "./components/Pre";
 import Home from "./components/Inicio/Home";
 import Datos from "./components/Datos/Datos";
+import Dispositivos from "./components/Dispositivos/Dispositivos";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -27,6 +28,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/datos" element={<Datos />} />
+            <Route path="/dispositivos" element={<Dispositivos />} />
           </Routes>
         </div>
         <Footer />

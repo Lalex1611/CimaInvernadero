@@ -45,6 +45,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - uploads_data:/app/uploads
     networks:
       - invernadero_net
     expose:
@@ -71,3 +73,4 @@ networks:
 
 volumes:
   db_data:
+  uploads_data:

@@ -49,6 +49,7 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+      - ./uploads:/app/uploads
     networks:
       - invernadero_net_dev
     ports:

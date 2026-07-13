@@ -45,7 +45,7 @@ export async function migrate() {
         specs_id  INT,
         zona_id   INT NOT NULL,
         tipo_id   INT NOT NULL,
-        estado    ENUM('OPERATIVO', 'EN MANTENIMIENTO', 'FALLANDO'),
+        estado    ENUM('OPERATIVO', 'INACTIVO', 'EN MANTENIMIENTO', 'FALLANDO'),
         nombre    VARCHAR(255),
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

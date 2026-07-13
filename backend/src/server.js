@@ -45,13 +45,31 @@ app.use("/api/dispositivos", dispositivosRouter);
 app.use("/api/catalogos", catalogosRouter);
 
 // Inicializa la base de datos y arranca el servidor
-try {
-  await migrate();
-  await seed();
-} catch (error) {
-  console.error("❌ Error al inicializar la base de datos:", error.message);
-  process.exit(1);
+async function inicializar() {
+  const MAX_INTENTOS = 5;
+  const ESPERA = 3000; // 3 segundos entre intentos
+
+  for (let intento = 1; intento <= MAX_INTENTOS; intento++) {
+    try {
+      await migrate();
+      await seed();
+      return; // si llegó aquí, todo salió bien
+    } catch (error) {
+      console.error(
+        `❌ Intento ${intento}/${MAX_INTENTOS} fallido:`,
+        error.message,
+      );
+      if (intento === MAX_INTENTOS) {
+        console.error("❌ No se pudo conectar a la base de datos");
+        process.exit(1);
+      }
+      console.log(`⏳ Reintentando en ${ESPERA / 1000} segundos...`);
+      await new Promise((resolve) => setTimeout(resolve, ESPERA));
+    }
+  }
 }
+
+await inicializar();
 
 app.listen(PORT, () => {
   console.log(`Servidor backend escuchando en el puerto ${PORT}`);
