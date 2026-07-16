@@ -22,12 +22,17 @@ function Dispositivos() {
   const [editarDispositivo, setEditarDispositivo] = useState(null);
   const [mostrarForm, setMostrarForm] = useState(false);
 
-  function handleGuardado() {
+  function handleGuardado(idEditado = null) {
     fetch("/api/dispositivos")
       .then((res) => res.json())
       .then((datos) => {
         setDispositivos(datos);
-        setDisplay(datos[0]);
+        if (idEditado) {
+          const editado = datos.find((d) => d.id === idEditado);
+          setDisplay(editado || datos[0]);
+        } else {
+          setDisplay(datos[0]);
+        }
       });
   }
 

@@ -60,10 +60,12 @@ h2 {
   background-color: var(--verde-principal);
   position: fixed;
   transition: all 0.3s ease-out 0s;
-  padding: 0.3rem 2rem;
+  padding: 0.3rem 2rem !important;
   font-size: 1.2rem;
   color: white;
   align-items: center;
+  left: 0 !important;
+  width: 100vw !important;
 }
 
 .navbar-toggler {

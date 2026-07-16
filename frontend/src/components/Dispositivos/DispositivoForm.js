@@ -31,7 +31,6 @@ function DispositivosForm({ show, onHide, onGuardado, dispositivo }) {
       .then((datos) => {
         const opciones = datos.map((z) => ({ value: z.id, label: z.zona }));
         setZonasOpciones(opciones);
-        // Si es edición, selecciona la zona actual
         if (dispositivo) {
           setZona(opciones.find((z) => z.label === dispositivo.zona) || null);
         }
@@ -59,7 +58,7 @@ function DispositivosForm({ show, onHide, onGuardado, dispositivo }) {
       setAncho(dispositivo.ancho || "");
       setAltura(dispositivo.altura || "");
     }
-  }, [show]);
+  }, [show, dispositivo]);
 
   async function crearZona(nombreZona) {
     const res = await fetch("/api/catalogos/zonas", {
@@ -132,7 +131,7 @@ function DispositivosForm({ show, onHide, onGuardado, dispositivo }) {
       }
 
       limpiarForm();
-      onGuardado();
+      onGuardado(esEdicion ? dispositivo.id : null);
       onHide();
     } catch (error) {
       setError("Error al guardar el dispositivo");
