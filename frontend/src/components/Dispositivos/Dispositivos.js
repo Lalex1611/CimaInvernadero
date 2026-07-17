@@ -133,7 +133,6 @@ function Dispositivos() {
                   <AiFillEdit />
                   Editar
                 </button>
-                {/* TODO: Agregar funcionalidad de boton */}
                 <button
                   className="dispositivo-button eliminar-button"
                   onClick={handleEliminar}

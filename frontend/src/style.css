@@ -441,6 +441,7 @@ h2 {
 /* SECCIÓN: DISPOSITIVOS */
 .dispositivos-page {
   width: 80%;
+  margin-bottom: 2rem;
 }
 
 .dispositivos-section {
@@ -544,6 +545,46 @@ h2 {
   height: 100px;
   object-fit: cover;
   border-radius: 0.8rem;
+}
+
+/* SECCION: CATALOGOS/CONFIGURACION */
+.catalogos-display > .card-component {
+  scroll-margin-top: 90px;
+}
+
+.catalogos-navbar {
+  position: sticky;
+  top: 70px;
+  height: fit-content;
+  margin: 2rem 0;
+  padding: 1rem 0;
+}
+
+.catalogos-navbar ul {
+  font-weight: 600;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.catalogos-navbar li {
+  width: fit-content;
+  margin: 0.3rem 0;
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.catalogos-navbar ul li a {
+  text-decoration: none;
+  color: var(--verde-secundario);
+}
+
+.catalogos-navbar ul li:hover {
+  background-color: var(--gris-fondo);
+  transition: all 0.3s ease;
 }
 
 /* SECCIÓN: FOOTER */

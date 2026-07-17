@@ -86,7 +86,7 @@ function NavBar() {
             <Nav.Item>
               <Nav.Link
                 as={Link}
-                to="/dispositivos"
+                to="/configuracion"
                 onClick={() => updateExpander(false)}
               >
                 <WiSnowflakeCold

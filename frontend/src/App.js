@@ -3,6 +3,7 @@ import Preloader from "./components/Pre";
 import Home from "./components/Inicio/Home";
 import Datos from "./components/Datos/Datos";
 import Dispositivos from "./components/Dispositivos/Dispositivos";
+import Configuracion from "./components/Configuracion/Configuracion";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -29,6 +30,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/datos" element={<Datos />} />
             <Route path="/dispositivos" element={<Dispositivos />} />
+            <Route path="/configuracion" element={<Configuracion />} />
           </Routes>
         </div>
         <Footer />
