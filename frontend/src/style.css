@@ -8,6 +8,8 @@
   --gris-fondo: #d9d9d9;
   --blanco-fondo: #f4f4f4;
   --negro: #000000;
+  --editar: #ffc477;
+  --eliminar: #fe1a00;
 }
 
 body {
@@ -513,11 +515,11 @@ h2 {
 }
 
 .editar-button {
-  background-color: #ffc477;
+  background-color: var(--editar);
 }
 
 .eliminar-button {
-  background-color: #fe1a00;
+  background-color: var(--eliminar);
 }
 
 .dispositivo-card {
@@ -585,6 +587,72 @@ h2 {
 .catalogos-navbar ul li:hover {
   background-color: var(--gris-fondo);
   transition: all 0.3s ease;
+}
+
+.catalogos-display {
+  margin-top: 30px;
+}
+
+.single-display {
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.single-display-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.single-display-config {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.single-display-config hr {
+  flex-basis: 100%;
+  border: 0;
+  margin: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #333, #ccc, #ccc);
+}
+
+.catalogos-section button {
+  border-color: transparent;
+  width: fit-content;
+  height: fit-content;
+  color: var(--blanco);
+}
+
+.single-display-add {
+  margin-right: 0.7rem;
+  border-radius: 0.5rem;
+  background-color: var(--verde-principal);
+}
+
+.single-display-edit {
+  border-radius: 0.5rem;
+  background-color: var(--editar);
+}
+
+.single-display-delete {
+  border-radius: 0.5rem;
+  background-color: var(--eliminar);
+}
+
+.single-display-buttons button {
+  margin-right: 0.7rem;
+  margin-bottom: 0.3rem;
+}
+
+.catalogos-table-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 /* SECCIÓN: FOOTER */

@@ -3,6 +3,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+
 function Configuracion() {
   const [zonas, setZonas] = useState([]);
   const [tipos, setTipos] = useState([]);
@@ -48,29 +50,105 @@ function Configuracion() {
             </ul>
           </Col>
           <Col className="catalogos-display">
-            <Container className="card-component" id="zonas">
-              <h2>Zonas</h2>
-              {zonas.map((z) => (
-                <p>{z.zona}</p>
-              ))}
+            <Container className="single-display card-component" id="zonas">
+              <div className="single-display-title">
+                <h2>Zonas</h2>
+                <button className="single-display-add">+</button>
+              </div>
+              <div className="catalogos-table-section catalogos-zonas-section">
+                {zonas.map((z) => (
+                  <div className="single-display-config">
+                    <span className="single-display-info">{z.zona}</span>
+                    <div className="single-display-buttons">
+                      <button className="single-display-edit">
+                        <AiFillEdit />
+                      </button>
+                      <button className="single-display-delete">
+                        <AiFillDelete />
+                      </button>
+                    </div>
+                    <hr />
+                  </div>
+                ))}
+              </div>
             </Container>
-            <Container className="card-component" id="dispositivos">
-              <h2>Tipos de dispositivo</h2>
-              {tipos.map((t) => (
-                <p>{t.nombre}</p>
-              ))}
+            <Container
+              className="single-display card-component"
+              id="dispositivos"
+            >
+              <div className="single-display-title">
+                <h2>Tipos de dispositivo</h2>
+                <button className="single-display-add">+</button>
+              </div>
+              <div className="catalogos-table-section catalogos-dispositivos-section">
+                {tipos.map((t) => (
+                  <div className="single-display-config">
+                    <span className="single-display-info">{t.nombre}</span>
+                    <div className="single-display-buttons">
+                      <button className="single-display-edit">
+                        <AiFillEdit />
+                      </button>
+                      <button className="single-display-delete">
+                        <AiFillDelete />
+                      </button>
+                    </div>
+                    <hr />
+                  </div>
+                ))}
+              </div>
             </Container>
-            <Container className="card-component" id="datos">
-              <h2>Tipos de dato</h2>
-              {dato.map((d) => (
-                <p>{d.nombre}</p>
-              ))}
+            <Container className="single-display card-component" id="datos">
+              <div className="single-display-title">
+                <h2>Tipos de dato</h2>
+                <button className="single-display-add">+</button>
+              </div>
+              <div className="catalogos-table-section catalogos-datos-section">
+                {dato.map((d) => (
+                  <div className="single-display-config">
+                    <span className="single-display-info">
+                      {d.nombre} ({d.unidad})
+                    </span>
+                    <div className="single-display-buttons">
+                      <button className="single-display-edit">
+                        <AiFillEdit />
+                      </button>
+                      <button className="single-display-delete">
+                        <AiFillDelete />
+                      </button>
+                    </div>
+                    <hr />
+                  </div>
+                ))}
+              </div>
             </Container>
-            <Container className="card-component" id="especificaciones">
-              <h2>Especificaciones</h2>
-              {specs.map((s) => (
-                <p>{s.largo}</p>
-              ))}
+            <Container
+              className="single-display card-component"
+              id="especificaciones"
+            >
+              <div className="single-display-title">
+                <h2>Especificaciones</h2>
+                <button className="single-display-add">+</button>
+              </div>
+              <div className="catalogos-table-section catalogos-specs-section">
+                {specs.map((s) => (
+                  <div className="single-display-config">
+                    <span className="single-display-info">
+                      <strong>Largo: </strong>
+                      {s.largo} <strong>Ancho: </strong> {s.ancho}{" "}
+                      <strong>Altura: </strong> {s.altura}
+                    </span>
+                    <div className="single-display-buttons">
+                      <button className="single-display-edit">
+                        <AiFillEdit />
+                      </button>
+                      <button className="single-display-delete">
+                        <AiFillDelete />
+                      </button>
+                    </div>
+                    <hr />
+                  </div>
+                ))}
+              </div>
             </Container>
           </Col>
         </Row>
@@ -78,5 +156,7 @@ function Configuracion() {
     </section>
   );
 }
+
+//TODO: Crear funciones de botonones
 
 export default Configuracion;
