@@ -9,7 +9,6 @@ function Configuracion() {
   const [zonas, setZonas] = useState([]);
   const [tipos, setTipos] = useState([]);
   const [dato, setDato] = useState([]);
-  const [specs, setSpecs] = useState([]);
 
   useEffect(() => {
     fetch("/api/catalogos/zonas")
@@ -19,10 +18,6 @@ function Configuracion() {
     fetch("/api/catalogos/tipos-dispositivo")
       .then((res) => res.json())
       .then((datos) => setTipos(datos));
-
-    fetch("/api/catalogos/especificaciones")
-      .then((res) => res.json())
-      .then((datos) => setSpecs(datos));
 
     fetch("/api/catalogos/tipos-dato")
       .then((res) => res.json())
@@ -43,9 +38,6 @@ function Configuracion() {
               </li>
               <li>
                 <a href="#datos">Tipos de dato</a>
-              </li>
-              <li>
-                <a href="#especificaciones">Especificaciones</a>
               </li>
             </ul>
           </Col>
@@ -107,35 +99,6 @@ function Configuracion() {
                   <div className="single-display-config">
                     <span className="single-display-info">
                       {d.nombre} ({d.unidad})
-                    </span>
-                    <div className="single-display-buttons">
-                      <button className="single-display-edit">
-                        <AiFillEdit />
-                      </button>
-                      <button className="single-display-delete">
-                        <AiFillDelete />
-                      </button>
-                    </div>
-                    <hr />
-                  </div>
-                ))}
-              </div>
-            </Container>
-            <Container
-              className="single-display card-component"
-              id="especificaciones"
-            >
-              <div className="single-display-title">
-                <h2>Especificaciones</h2>
-                <button className="single-display-add">+</button>
-              </div>
-              <div className="catalogos-table-section catalogos-specs-section">
-                {specs.map((s) => (
-                  <div className="single-display-config">
-                    <span className="single-display-info">
-                      <strong>Largo: </strong>
-                      {s.largo} <strong>Ancho: </strong> {s.ancho}{" "}
-                      <strong>Altura: </strong> {s.altura}
                     </span>
                     <div className="single-display-buttons">
                       <button className="single-display-edit">
