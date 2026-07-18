@@ -5,10 +5,15 @@ import Row from "react-bootstrap/Row";
 
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
+import ZonasForm from "./ZonasForm";
+
 function Configuracion() {
   const [zonas, setZonas] = useState([]);
   const [tipos, setTipos] = useState([]);
   const [dato, setDato] = useState([]);
+
+  const [mostrarZona, setMostrarZona] = useState(false);
+  const [editarZona, setEditarZona] = useState(null);
 
   useEffect(() => {
     fetch("/api/catalogos/zonas")
@@ -90,14 +95,27 @@ function Configuracion() {
             <Container className="single-display card-component" id="zonas">
               <div className="single-display-title">
                 <h2>Zonas</h2>
-                <button className="single-display-add">+</button>
+                <button
+                  className="single-display-add"
+                  onClick={() => {
+                    setMostrarZona(true);
+                  }}
+                >
+                  +
+                </button>
               </div>
               <div className="catalogos-table-section catalogos-zonas-section">
                 {zonas.map((z) => (
                   <div className="single-display-config">
                     <span className="single-display-info">{z.zona}</span>
                     <div className="single-display-buttons">
-                      <button className="single-display-edit">
+                      <button
+                        className="single-display-edit"
+                        onClick={() => {
+                          setEditarZona(z);
+                          setMostrarZona(true);
+                        }}
+                      >
                         <AiFillEdit />
                       </button>
                       <button
@@ -164,6 +182,15 @@ function Configuracion() {
           </Col>
         </Row>
       </Container>
+      <ZonasForm
+        show={mostrarZona}
+        onHide={() => {
+          setMostrarZona(false);
+          setEditarZona(null);
+        }}
+        onGuardado={() => refresh("zonas")}
+        componente={editarZona}
+      />
     </section>
   );
 }
