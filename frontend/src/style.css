@@ -245,6 +245,7 @@ h2 {
   border-radius: 1rem;
   width: 80%;
   height: 14rem;
+  aspect-ratio: 16/9;
 }
 
 @media (max-width: 767px) {
@@ -469,8 +470,7 @@ h2 {
 }
 
 .dispositivo-img {
-  width: 100%;
-  max-width: 200px;
+  width: 200px;
   height: 200px;
   object-fit: cover;
   border-radius: 0.8rem;
@@ -506,6 +506,10 @@ h2 {
 
 .actual-display {
   padding: 2rem 0 2rem 1rem;
+}
+
+.actual-display-info {
+  margin-left: 1rem;
 }
 
 .actual-display-info > * {
@@ -554,8 +558,7 @@ h2 {
 }
 
 .dispositivo-img-list {
-  width: 100%;
-  max-width: 100px;
+  width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 0.8rem;

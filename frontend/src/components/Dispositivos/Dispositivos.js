@@ -96,6 +96,7 @@ function Dispositivos() {
                   src={display?.image_path || defaultImg}
                   alt={display?.nombre}
                   className="dispositivo-img"
+                  loading="lazy"
                 />
               </Col>
               <Col>
@@ -161,6 +162,7 @@ function Dispositivos() {
                     src={d?.image_path || defaultImg}
                     alt={d?.nombre}
                     className="dispositivo-img-list"
+                    loading="lazy"
                   />
                   <span style={{ fontWeight: "bold" }}>{d.nombre}</span>
                   <span className={`estado-badge ${estadoClases[d?.estado]}`}>

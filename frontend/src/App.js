@@ -1,14 +1,20 @@
 import NavBar from "./components/Navbar";
 import Preloader from "./components/Pre";
-import Home from "./components/Inicio/Home";
-import Datos from "./components/Datos/Datos";
-import Dispositivos from "./components/Dispositivos/Dispositivos";
-import Configuracion from "./components/Configuracion/Configuracion";
 import Footer from "./components/Footer";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 
 import "./style.css";
+
+const Home = lazy(() => import("./components/Inicio/Home"));
+const Datos = lazy(() => import("./components/Datos/Datos"));
+const Dispositivos = lazy(
+  () => import("./components/Dispositivos/Dispositivos"),
+);
+const Configuracion = lazy(
+  () => import("./components/Configuracion/Configuracion"),
+);
 
 function App() {
   const [load, updateLoad] = useState(true);
@@ -26,12 +32,14 @@ function App() {
       <div className="App" id={load ? "no-scroll" : "scroll"}>
         <NavBar />
         <div className="app-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/datos" element={<Datos />} />
-            <Route path="/dispositivos" element={<Dispositivos />} />
-            <Route path="/configuracion" element={<Configuracion />} />
-          </Routes>
+          <Suspense fallback={<div>Cargando...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/datos" element={<Datos />} />
+              <Route path="/dispositivos" element={<Dispositivos />} />
+              <Route path="/configuracion" element={<Configuracion />} />
+            </Routes>
+          </Suspense>
         </div>
         <Footer />
       </div>

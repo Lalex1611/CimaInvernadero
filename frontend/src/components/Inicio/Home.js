@@ -60,6 +60,7 @@ function Home() {
                 src={invernadero}
                 alt="Foto del invernadero"
                 className="img-fluid invernadero-img"
+                loading="eager"
               />
             </Col>
           </Row>
