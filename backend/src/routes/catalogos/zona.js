@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { pool } from "../../db.js";
 
+import { verificarToken } from "../../middleware/auth.js";
+
 const router = Router();
 
 // GET /api/zona -> todas las zonas
@@ -30,7 +32,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /api/zona -> crear nueva zona
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, async (req, res) => {
   const { zona } = req.body;
 
   if (!zona) {
@@ -49,7 +51,7 @@ router.post("/", async (req, res) => {
 });
 
 // PATCH /api/zona/:id -> actualizar una zona
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
   const { zona } = req.body;
 
@@ -73,7 +75,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // DELETE /api/zona/:id -> eliminar una zona
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
 
   try {

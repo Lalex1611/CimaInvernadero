@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { pool } from "../../db.js";
 
+import { verificarToken } from "../../middleware/auth.js";
+
 const router = Router();
 
 // GET /api/tipo_dato -> todos los tipos de datos
@@ -34,7 +36,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /api/tipo_dato -> crear nuevo tipo de dato
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, async (req, res) => {
   const { nombre, unidad } = req.body;
 
   if (!nombre || !unidad) {
@@ -54,7 +56,7 @@ router.post("/", async (req, res) => {
 });
 
 // PATCH /api/tipo_dato/:id -> actualizar solo los campos enviados
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
   const { nombre, unidad } = req.body;
 
@@ -96,7 +98,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // DELETE /api/tipo_dato/:id -> eliminar un tipo de dato
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
 
   try {

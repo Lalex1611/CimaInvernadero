@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { pool } from "../../db.js";
 
+import { verificarToken } from "../../middleware/auth.js";
+
 const router = Router();
 
 // GET /api/especificaciones -> todas las especificaciones
@@ -37,7 +39,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /api/especificaciones -> crear nueva especificación
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, async (req, res) => {
   const { largo, ancho, altura } = req.body;
 
   if (largo === undefined || ancho === undefined || altura === undefined) {
@@ -59,7 +61,7 @@ router.post("/", async (req, res) => {
 });
 
 // PATCH /api/especificaciones/:id -> actualizar solo los campos enviados
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
   const { largo, ancho, altura } = req.body;
 
@@ -106,7 +108,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // DELETE /api/especificaciones/:id -> eliminar una especificación
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
 
   try {

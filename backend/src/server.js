@@ -10,6 +10,7 @@ import { seed } from "./database/seed.js";
 import { pool } from "./db.js";
 import { fileURLToPath } from "url";
 import path from "path";
+import authRouter from "./routes/auth.js";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(cors());
 app.use(express.json());
+app.use("/api/auth", authRouter);
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.use((req, res, next) => {

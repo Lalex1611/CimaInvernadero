@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { pool } from "../db.js";
 
+import { verificarToken } from "../middleware/auth.js";
+
 const router = Router();
 
 // GET /api/lecturas -> todas las lecturas, con filtros opcionales
@@ -123,7 +125,7 @@ router.get("/ultimas", async (req, res) => {
 });
 
 // POST /api/lecturas -> recibe el payload del ESP32
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, async (req, res) => {
   const { dispositivo_id, lecturas } = req.body;
 
   if (
@@ -198,7 +200,7 @@ router.post("/", async (req, res) => {
 });
 
 // PATCH /api/lecturas/:id -> corregir un dato o tipo_dato_id de una lectura
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
   const { dato, tipo_dato_id } = req.body;
 
@@ -261,7 +263,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // DELETE /api/lecturas/:id -> eliminar una lectura
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
 
   try {

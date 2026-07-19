@@ -2,6 +2,8 @@ import { Router } from "express";
 import multer from "multer";
 import path from "path";
 
+import { verificarToken } from "../middleware/auth.js";
+
 const router = Router();
 
 const storage = multer.diskStorage({
@@ -30,14 +32,19 @@ const upload = multer({
 });
 
 // POST /api/uploads/dispositivos
-router.post("/dispositivos", upload.single("imagen"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No se recibió ninguna imagen" });
-  }
+router.post(
+  "/dispositivos",
+  verificarToken,
+  upload.single("imagen"),
+  (req, res) => {
+    if (!req.file) {
+      return res.status(400).json({ error: "No se recibió ninguna imagen" });
+    }
 
-  // Devuelve la ruta pública donde quedó guardada la imagen
-  const ruta = `/uploads/dispositivos/${req.file.filename}`;
-  res.status(201).json({ image_path: ruta });
-});
+    // Devuelve la ruta pública donde quedó guardada la imagen
+    const ruta = `/uploads/dispositivos/${req.file.filename}`;
+    res.status(201).json({ image_path: ruta });
+  },
+);
 
 export default router;

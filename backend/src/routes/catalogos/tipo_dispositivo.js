@@ -4,6 +4,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import { verificarToken } from "../../middleware/auth.js";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const router = Router();
@@ -46,7 +48,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /api/tipo_dispositivo -> crear nuevo tipo de dispositivo
-router.post("/", async (req, res) => {
+router.post("/", verificarToken, async (req, res) => {
   const { nombre, descripcion, image_path } = req.body;
 
   if (!nombre) {
@@ -71,7 +73,7 @@ router.post("/", async (req, res) => {
 });
 
 // PATCH /api/tipo_dispositivo/:id -> actualizar solo los campos enviados
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
   const { nombre, descripcion, image_path } = req.body;
 
@@ -141,7 +143,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // DELETE /api/tipo_dispositivo/:id -> eliminar un tipo de dispositivo
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;
 
   try {
