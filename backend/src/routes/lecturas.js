@@ -7,8 +7,14 @@ const router = Router();
 
 // GET /api/lecturas -> todas las lecturas, con filtros opcionales
 router.get("/", async (req, res) => {
-  const { dispositivo_id, tipo_dato_id, zona_id, tipo_dispositivo_id } =
-    req.query;
+  const {
+    dispositivo_id,
+    tipo_dato_id,
+    zona_id,
+    tipo_dispositivo_id,
+    fecha_inicio,
+    fecha_fin,
+  } = req.query;
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 20;
   const offset = (page - 1) * limit;
@@ -31,6 +37,14 @@ router.get("/", async (req, res) => {
   if (tipo_dispositivo_id !== undefined) {
     condiciones.push("d.tipo_id = ?");
     valores.push(tipo_dispositivo_id);
+  }
+  if (fecha_inicio) {
+    condiciones.push("l.created_at >= ?");
+    valores.push(fecha_inicio + " 00:00:00");
+  }
+  if (fecha_fin) {
+    condiciones.push("l.created_at <= ?");
+    valores.push(fecha_fin + " 23:59:59");
   }
 
   const where =
@@ -86,8 +100,14 @@ router.get("/", async (req, res) => {
 
 // GET /api/lecturas/exportar?filtros...
 router.get("/exportar", async (req, res) => {
-  const { dispositivo_id, tipo_dato_id, zona_id, tipo_dispositivo_id } =
-    req.query;
+  const {
+    dispositivo_id,
+    tipo_dato_id,
+    zona_id,
+    tipo_dispositivo_id,
+    fecha_inicio,
+    fecha_fin,
+  } = req.query;
 
   const condiciones = [];
   const valores = [];
@@ -107,6 +127,14 @@ router.get("/exportar", async (req, res) => {
   if (tipo_dispositivo_id) {
     condiciones.push("d.tipo_id = ?");
     valores.push(tipo_dispositivo_id);
+  }
+  if (fecha_inicio) {
+    condiciones.push("l.created_at >= ?");
+    valores.push(fecha_inicio + " 00:00:00");
+  }
+  if (fecha_fin) {
+    condiciones.push("l.created_at <= ?");
+    valores.push(fecha_fin + " 23:59:59");
   }
 
   const where =
