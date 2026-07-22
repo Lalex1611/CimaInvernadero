@@ -51,7 +51,7 @@ function Dispositivos() {
     if (!confirmado) return;
 
     try {
-      const res = await fetchAuth(`/api/dispositivos/${display.id}`, {
+      const res = await fetchAuth(`${API_URL}/api/dispositivos/${display.id}`, {
         method: "DELETE",
       });
 
