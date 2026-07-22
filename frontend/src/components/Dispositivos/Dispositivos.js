@@ -65,6 +65,23 @@ function Dispositivos() {
     }
   }
 
+  function handlerSpecs(dispositivo) {
+    if (dispositivo.specs_id !== 1) {
+      return (
+        <div>
+          <strong>Largo: </strong> {display?.largo}
+          {"m "}
+          <strong>Ancho: </strong> {display?.ancho}
+          {"m "}
+          <strong>Altura: </strong> {display?.altura}
+          {"m"}
+        </div>
+      );
+    }
+
+    return <p>No se añadieron especifiaciones de ubicacion</p>;
+  }
+
   useEffect(() => {
     fetch("/api/dispositivos")
       .then((res) => res.json())
@@ -123,13 +140,7 @@ function Dispositivos() {
                   <p>{display?.descripcion}</p>
                   <p>
                     <strong>Ubicacion: </strong> {display?.zona}
-                    <br />
-                    <strong>Largo: </strong> {display?.largo}
-                    {"m "}
-                    <strong>Ancho: </strong> {display?.ancho}
-                    {"m "}
-                    <strong>Altura: </strong> {display?.altura}
-                    {"m"}
+                    {handlerSpecs(display)}
                   </p>
                 </div>
               </Col>

@@ -55,9 +55,11 @@ function DispositivosForm({ show, onHide, onGuardado, dispositivo }) {
       setEstado(
         estadoOpciones.find((e) => e.value === dispositivo.estado) || null,
       );
-      setLargo(dispositivo.largo || "");
-      setAncho(dispositivo.ancho || "");
-      setAltura(dispositivo.altura || "");
+      if (dispositivo.specs_id !== 1) {
+        setLargo(dispositivo.largo || "");
+        setAncho(dispositivo.ancho || "");
+        setAltura(dispositivo.altura || "");
+      }
     }
   }, [show, dispositivo]);
 
@@ -95,19 +97,47 @@ function DispositivosForm({ show, onHide, onGuardado, dispositivo }) {
     setError(null);
 
     try {
-      let specs_id = null;
+      let specs_id = 1;
+      let viejo_specs_id = null;
+
       if (largo || ancho || altura) {
-        const resSpecs = await fetchAuth("/api/catalogos/especificaciones", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            largo: largo || null,
-            ancho: ancho || null,
-            altura: altura || null,
-          }),
-        });
-        const datosSpecs = await resSpecs.json();
-        specs_id = datosSpecs.id;
+        if (esEdicion && dispositivo.specs_id && dispositivo.specs_id !== 1) {
+          // Actualiza las specs existentes
+          await fetchAuth(
+            `/api/catalogos/especificaciones/${dispositivo.specs_id}`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                largo: largo || null,
+                ancho: ancho || null,
+                altura: altura || null,
+              }),
+            },
+          );
+          specs_id = dispositivo.specs_id;
+        } else {
+          // Crea specs nuevas
+          const resSpecs = await fetchAuth("/api/catalogos/especificaciones", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              largo: largo || null,
+              ancho: ancho || null,
+              altura: altura || null,
+            }),
+          });
+          const datosSpecs = await resSpecs.json();
+          specs_id = datosSpecs.id;
+        }
+      } else if (
+        esEdicion &&
+        dispositivo.specs_id &&
+        dispositivo.specs_id !== 1
+      ) {
+        // El usuario quitó todas las specs — borra el registro viejo
+        viejo_specs_id = dispositivo.specs_id;
+        specs_id = 1;
       }
 
       const res = await fetchAuth(
@@ -129,6 +159,12 @@ function DispositivosForm({ show, onHide, onGuardado, dispositivo }) {
         const datos = await res.json();
         setError(datos.error);
         return;
+      }
+
+      if (viejo_specs_id) {
+        await fetchAuth(`/api/catalogos/especificaciones/${viejo_specs_id}`, {
+          method: "DELETE",
+        });
       }
 
       limpiarForm();

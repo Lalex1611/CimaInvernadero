@@ -48,6 +48,7 @@ export async function seed() {
     // Punto de origen: esquina izquierda de la entrada
     await connection.query(`
       INSERT INTO especificaciones (largo, ancho, altura) VALUES
+        (-10, -10, -10),
         (0.5, 0.5, 1.5)
     `);
     console.log("✅ Especificaciones insertadas");
@@ -56,7 +57,7 @@ export async function seed() {
     // specs_id 1, zona_id 5 (Interior), tipo_id 2 (DHT22)
     await connection.query(`
       INSERT INTO dispositivo (specs_id, zona_id, tipo_id, estado, nombre) VALUES
-        (1, 5, 2, 'OPERATIVO', 'DHT22-01')
+        (2, 5, 2, 'OPERATIVO', 'DHT22-01')
     `);
     console.log("✅ Dispositivo insertado");
 

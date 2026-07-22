@@ -19,7 +19,14 @@ const PORT = process.env.PORT || 4000;
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://cima-invernadero.vercel.app",
+      "http://localhost:3000", // para seguir funcionando en desarrollo
+    ],
+  }),
+);
 app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));

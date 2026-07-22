@@ -14,6 +14,7 @@ router.get("/", async (req, res) => {
     d.estado,
     d.nombre,
     d.created_at,
+    d.specs_id,
     e.altura,
     e.ancho,
     e.largo,
