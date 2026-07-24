@@ -16,6 +16,10 @@ import { fetchAuth } from "../../utils/fetchAuth";
 function Configuracion() {
   const { isAuthenticated } = useAuth();
 
+  const [dispositivoPromedio, setDispositivoPromedio] = useState(
+    localStorage.getItem("tipo_dispositivo_promedio") || "",
+  );
+
   const [zonas, setZonas] = useState([]);
   const [tipos, setTipos] = useState([]);
   const [dato, setDato] = useState([]);
@@ -277,14 +281,11 @@ function Configuracion() {
               </div>
               <div className="catalogos-table-section catalogos-datos-section">
                 <select
-                  value={
-                    localStorage.getItem("tipo_dispositivo_promedio") || ""
-                  }
+                  value={dispositivoPromedio}
                   onChange={(e) => {
-                    localStorage.setItem(
-                      "tipo_dispositivo_promedio",
-                      e.target.value,
-                    );
+                    const valor = e.target.value;
+                    setDispositivoPromedio(valor);
+                    localStorage.setItem("tipo_dispositivo_promedio", valor);
                   }}
                   className="select-dispositivo"
                 >

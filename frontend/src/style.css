@@ -674,6 +674,15 @@ h2 {
   padding-bottom: 1rem;
 }
 
+.single-display select {
+  width: fit-content;
+}
+
+#dispositivo_promedio .single-display-title {
+  display: flex;
+  flex-direction: column;
+}
+
 .single-display-title {
   display: flex;
   flex-direction: row;
