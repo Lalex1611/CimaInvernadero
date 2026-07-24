@@ -219,6 +219,34 @@ router.get("/ultimas", async (req, res) => {
   }
 });
 
+// GET /api/lecturas/promedio -> promedio de las últimas lecturas de todos los dispositivos
+router.get("/promedio", async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT 
+        td.nombre AS tipo_dato,
+        td.unidad,
+        ROUND(AVG(l.dato), 2) AS promedio
+      FROM lecturas l
+      JOIN tipo_dato td ON l.tipo_dato_id = td.id
+      INNER JOIN (
+        SELECT dispositivo_id, tipo_dato_id, MAX(created_at) AS max_fecha
+        FROM lecturas
+        GROUP BY dispositivo_id, tipo_dato_id
+      ) ult ON ult.dispositivo_id = l.dispositivo_id 
+            AND ult.tipo_dato_id = l.tipo_dato_id
+            AND ult.max_fecha = l.created_at
+      WHERE td.nombre IN ('Temperatura', 'Humedad', 'VPD')
+      GROUP BY l.tipo_dato_id, td.nombre, td.unidad
+    `);
+
+    res.json({ datos: rows });
+  } catch (error) {
+    console.error("Error al consultar promedios:", error.message);
+    res.status(500).json({ error: "Error al consultar los promedios" });
+  }
+});
+
 // POST /api/lecturas -> recibe el payload del ESP32
 router.post("/", async (req, res) => {
   const { dispositivo_id, lecturas } = req.body;

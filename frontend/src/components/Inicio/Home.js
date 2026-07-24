@@ -17,14 +17,15 @@ function Home() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    function fetchLecturas() {
-      fetch(`${API_URL}/api/lecturas/ultimas?dispositivo_id=5`)
+    function fetchPromedio() {
+      fetch(`${API_URL}/api/lecturas/promedio`)
         .then((res) => res.json())
-        .then((respuesta) => {
-          const datos = respuesta.datos;
-          const temperatura = datos.find((l) => l.tipo_dato === "Temperatura");
-          const humedad = datos.find((l) => l.tipo_dato === "Humedad");
-          const vpd = datos.find((l) => l.tipo_dato === "VPD");
+        .then((datos) => {
+          const temperatura = datos.datos.find(
+            (l) => l.tipo_dato === "Temperatura",
+          );
+          const humedad = datos.datos.find((l) => l.tipo_dato === "Humedad");
+          const vpd = datos.datos.find((l) => l.tipo_dato === "VPD");
           setLecturas({ temperatura, humedad, vpd });
           setCargando(false);
         })
@@ -34,10 +35,8 @@ function Home() {
         });
     }
 
-    fetchLecturas();
-
-    const intervalo = setInterval(fetchLecturas, 60000);
-
+    fetchPromedio();
+    const intervalo = setInterval(fetchPromedio, 120000);
     return () => clearInterval(intervalo);
   }, []);
 
@@ -99,15 +98,15 @@ function Home() {
                   className="lectura-valor"
                   style={{
                     color: lecturas.temperatura
-                      ? lecturas.temperatura.dato >= 15 &&
-                        lecturas.temperatura.dato <= 30
+                      ? lecturas.temperatura.promedio >= 15 &&
+                        lecturas.temperatura.promedio <= 40
                         ? "#2ecc71"
                         : "#e74c3c"
                       : "inherit",
                   }}
                 >
                   {lecturas.temperatura
-                    ? `${lecturas.temperatura.dato} ${lecturas.temperatura.unidad}`
+                    ? `${lecturas.temperatura.promedio} ${lecturas.temperatura.unidad}`
                     : "Sin datos"}
                 </span>
               </div>
@@ -120,15 +119,15 @@ function Home() {
                   className="lectura-valor"
                   style={{
                     color: lecturas.humedad
-                      ? lecturas.humedad.dato >= 50 &&
-                        lecturas.humedad.dato <= 85
+                      ? lecturas.humedad.promedio >= 50 &&
+                        lecturas.humedad.promedio <= 85
                         ? "#2ecc71"
                         : "#e74c3c"
                       : "inherit",
                   }}
                 >
                   {lecturas.humedad
-                    ? `${lecturas.humedad.dato} ${lecturas.humedad.unidad}`
+                    ? `${lecturas.humedad.promedio} ${lecturas.humedad.unidad}`
                     : "Sin datos"}
                 </span>
               </div>
@@ -141,14 +140,15 @@ function Home() {
                   className="lectura-valor"
                   style={{
                     color: lecturas.vpd
-                      ? lecturas.vpd.dato >= 0.5 && lecturas.vpd.dato <= 1.5
+                      ? lecturas.vpd.promedio >= 0.5 &&
+                        lecturas.vpd.promedio <= 1.5
                         ? "#2ecc71"
                         : "#e74c3c"
                       : "inherit",
                   }}
                 >
                   {lecturas.vpd
-                    ? `${lecturas.vpd.dato} ${lecturas.vpd.unidad}`
+                    ? `${lecturas.vpd.promedio} ${lecturas.vpd.unidad}`
                     : "Sin datos"}
                 </span>
               </div>
