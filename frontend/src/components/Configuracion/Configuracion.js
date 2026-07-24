@@ -11,6 +11,7 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import ZonasForm from "./ZonasForm";
 import TiposForm from "./TiposForm";
 import UnidadForm from "./UnidadForm";
+import PropositosForm from "./PropositosForm";
 import { fetchAuth } from "../../utils/fetchAuth";
 
 function Configuracion() {
@@ -19,6 +20,7 @@ function Configuracion() {
   const [zonas, setZonas] = useState([]);
   const [tipos, setTipos] = useState([]);
   const [dato, setDato] = useState([]);
+  const [propositos, setPropositos] = useState([]);
 
   const [mostrarZona, setMostrarZona] = useState(false);
   const [editarZona, setEditarZona] = useState(null);
@@ -26,6 +28,8 @@ function Configuracion() {
   const [editarTipo, setEditarTipo] = useState(null);
   const [mostrarUnidad, setMostrarUnidad] = useState(false);
   const [editarUnidad, setEditarUnidad] = useState(null);
+  const [mostrarProposito, setMostrarProposito] = useState(false);
+  const [editarProposito, setEditarProposito] = useState(null);
 
   useEffect(() => {
     fetch(`${API_URL}/api/catalogos/zonas`)
@@ -39,6 +43,10 @@ function Configuracion() {
     fetch(`${API_URL}/api/catalogos/tipos-dato`)
       .then((res) => res.json())
       .then((datos) => setDato(datos));
+
+    fetch(`${API_URL}/api/catalogos/propositos`)
+      .then((res) => res.json())
+      .then((datos) => setPropositos(datos));
   }, []);
 
   function refresh(ruta) {
@@ -54,6 +62,9 @@ function Configuracion() {
             break;
           case "tipos-dato":
             setDato(datos);
+            break;
+          case "propositos":
+            setPropositos(datos);
             break;
           default:
             window.print(`No se encontró ${ruta}`);
@@ -100,6 +111,9 @@ function Configuracion() {
               </li>
               <li>
                 <a href="#datos">Tipos de dato</a>
+              </li>
+              <li>
+                <a href="#propositos">Propositos</a>
               </li>
             </ul>
           </Col>
@@ -261,6 +275,63 @@ function Configuracion() {
                 ))}
               </div>
             </Container>
+            <Container
+              className="single-display card-component"
+              id="propositos"
+            >
+              <div className="single-display-title">
+                <h2>Propositos</h2>
+                {isAuthenticated && (
+                  <button
+                    className="single-display-add"
+                    onClick={() => {
+                      setMostrarProposito(true);
+                    }}
+                  >
+                    +
+                  </button>
+                )}
+              </div>
+              <div className="catalogos-table-section catalogos-proposito-section">
+                {propositos.map((p) => (
+                  <div className="single-display-config">
+                    <span className="single-display-info">
+                      {isAuthenticated && (
+                        <sub>
+                          <strong>({p.id})</strong>
+                        </sub>
+                      )}{" "}
+                      {p.nombre}
+                    </span>
+                    <div className="single-display-buttons">
+                      {isAuthenticated && (
+                        <button
+                          className="single-display-edit"
+                          onClick={() => {
+                            setEditarProposito(p);
+                            setMostrarProposito(true);
+                          }}
+                        >
+                          <AiFillEdit />
+                        </button>
+                      )}
+
+                      {isAuthenticated && (
+                        <button
+                          className="single-display-delete"
+                          onClick={() =>
+                            handleEliminar(p.id, p.nombre, "propositos")
+                          }
+                        >
+                          <AiFillDelete />
+                        </button>
+                      )}
+                    </div>
+                    <hr />
+                  </div>
+                ))}
+              </div>
+            </Container>
           </Col>
         </Row>
       </Container>
@@ -290,6 +361,15 @@ function Configuracion() {
         }}
         onGuardado={() => refresh("tipos-dato")}
         componente={editarUnidad}
+      />
+      <PropositosForm
+        show={mostrarProposito}
+        onHide={() => {
+          setMostrarProposito(false);
+          setEditarProposito(null);
+        }}
+        onGuardado={() => refresh("propositos")}
+        componente={editarProposito}
       />
     </section>
   );
