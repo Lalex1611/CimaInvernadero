@@ -18,6 +18,8 @@ function TiposForm({ show, onHide, onGuardado, componente }) {
     if (componente) {
       setNombre(componente.nombre || "");
       setDescripcion(componente.descripcion || "");
+    } else {
+      limpiarForm();
     }
   }, [show, componente]);
 

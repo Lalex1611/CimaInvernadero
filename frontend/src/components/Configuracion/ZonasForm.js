@@ -14,6 +14,8 @@ function ZonasForm({ show, onHide, onGuardado, componente }) {
 
     if (componente) {
       setZona(componente.zona || "");
+    } else {
+      limpiarForm();
     }
   }, [show, componente]);
 

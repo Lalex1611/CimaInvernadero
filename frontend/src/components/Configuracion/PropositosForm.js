@@ -14,6 +14,8 @@ function PropositosForm({ show, onHide, onGuardado, componente }) {
 
     if (componente) {
       setProposito(componente.nombre || "");
+    } else {
+      limpiarForm();
     }
   }, [show, componente]);
 

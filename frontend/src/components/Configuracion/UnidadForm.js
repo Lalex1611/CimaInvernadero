@@ -17,6 +17,8 @@ function UnidadForm({ show, onHide, onGuardado, componente }) {
     if (componente) {
       setNombre(componente.nombre || "");
       setUnidad(componente.unidad || "");
+    } else {
+      limpiarForm();
     }
   }, [show, componente]);
 
