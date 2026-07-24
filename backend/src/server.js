@@ -74,7 +74,11 @@ async function inicializar() {
   for (let intento = 1; intento <= MAX_INTENTOS; intento++) {
     try {
       await migrate();
-      await seed();
+
+      if (process.env.RUN_SEED === "true") {
+        await seed();
+      }
+
       return; // si llegó aquí, todo salió bien
     } catch (error) {
       console.error(
